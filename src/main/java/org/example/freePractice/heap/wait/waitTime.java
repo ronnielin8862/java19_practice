@@ -1,8 +1,6 @@
-package org.example.freePractice;
+package org.example.freePractice.heap.wait;
 
-import java.util.concurrent.CompletableFuture;
-
-public class ThreadTest {
+public class waitTime {
     public static void main(String[] args) throws InterruptedException {
 
         int times = 10;
