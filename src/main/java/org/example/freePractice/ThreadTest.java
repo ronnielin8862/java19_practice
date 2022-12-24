@@ -6,36 +6,31 @@ public class ThreadTest {
     public static void main(String[] args) throws InterruptedException {
 
         int times = 10;
+        String s = "abc";
 
         for (int i=0 ; i <times ; i++){
             int finalI = i;
-            CompletableFuture<String> comparableFutureTask = CompletableFuture.supplyAsync(() -> {
-                System.out.println("Thread " + finalI + " start");
+            s = s + finalI;
+            String finalS = s;
+            System.out.println(1);
+            new Thread( ()-> {
+                System.out.println(2);
                 try {
-                    Thread.sleep(1000 * 3);
+                    System.out.println(3);
+                    synchronized (finalS){
+                        System.out.println(4);
+                        finalS.wait(3000);
+                    }
+                    System.out.println(finalS + " done");
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                return "Thread " + finalI + " end";
-            });
-//            comparableFutureTask.thenAccept((String s) -> {
-//                System.out.println(s);
-//            });
+            }).start();
         }
 
-        Thread.sleep(1000 * 10);
+//        s.notify();
 
-//        for (int i=0 ; i <times ; i++){
-//            int finalI = i;
-//            Thread thread = new Thread(() -> {
-//                System.out.println("thread "+ finalI);
-//                try {
-//                    Thread.sleep(1000 * 3);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            });
-//            thread.start();
-//        }
+        Thread.sleep(1000 * 50);
+        System.out.println("finish");
     }
 }
