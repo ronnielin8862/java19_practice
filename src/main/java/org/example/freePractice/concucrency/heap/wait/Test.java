@@ -1,4 +1,4 @@
-package org.example.freePractice.heap.wait;
+package org.example.freePractice.concucrency.heap.wait;
 
 import org.example.model.ExampleModel;
 

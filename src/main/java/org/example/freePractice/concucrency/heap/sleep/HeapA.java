@@ -1,4 +1,4 @@
-package org.example.freePractice.heap.sleep;
+package org.example.freePractice.concucrency.heap.sleep;
 
 import org.example.model.ExampleModel;
 

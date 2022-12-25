@@ -1,4 +1,4 @@
-package org.example.freePractice.heap.wait;
+package org.example.freePractice.concucrency.heap.wait;
 
 public class waitTime {
     public static void main(String[] args) throws InterruptedException {
