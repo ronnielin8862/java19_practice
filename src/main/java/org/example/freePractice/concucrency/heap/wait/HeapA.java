@@ -7,11 +7,11 @@ import java.util.concurrent.*;
 
 public class HeapA {
     public static void main(String[] args) throws InterruptedException {
-        int times = 3000;
-        int interval = 100;
+        int times = 100000;
+        int interval = 50;
 
         List<ExampleModel> exampleModelList = new CopyOnWriteArrayList<>();
-        Executor executor = new ThreadPoolExecutor(10000, 10000, 10L, TimeUnit.SECONDS, new ArrayBlockingQueue<>(10000), new ThreadPoolExecutor.AbortPolicy());
+        Executor executor = new ThreadPoolExecutor(100000, 100000, 10L, TimeUnit.SECONDS, new ArrayBlockingQueue<>(10000), new ThreadPoolExecutor.AbortPolicy());
 
         // 觸發wait
         for (int i = 0; i < times; i++) {
@@ -32,10 +32,15 @@ public class HeapA {
             m.thenAccept((ExampleModel exampleModel1) -> {
                 System.out.println(Thread.currentThread().getName() + " done");
             });
+            if (i %2000 ==0 ){
+                System.gc();
+            }
         }
 
+
+
         System.out.println("開始等待");
-        Thread.sleep(1000 * 180);
+        Thread.sleep(1000 * 380);
 
         // 觸發notify
         for (int i = 0; i < times; i++) {
