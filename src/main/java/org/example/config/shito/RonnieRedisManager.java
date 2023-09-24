@@ -17,9 +17,9 @@ public class RonnieRedisManager extends RedisManager {
         this.redisTemplate = redisTemplate;
     }
 
-    @Override
-    public byte[] get(byte[] key) {
-        return (byte[]) redisTemplate.opsForValue().get(new String(key));
+//    @Override
+    public byte[] get(String[] key) {
+        return (byte[]) redisTemplate.opsForValue().get(key);
     }
 
     // 重寫其他方法，如set、del等，使其使用redisTemplate

@@ -5,6 +5,8 @@ import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.mgt.DefaultSessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
@@ -31,26 +33,48 @@ public class ShiroConfig {
     public RedisCacheManager cacheManager() {
         RedisCacheManager cacheManager = new RedisCacheManager();
         cacheManager.setKeyPrefix("shiro:cache:");
-        cacheManager.setExpire(120);
+        cacheManager.setExpire(1000);
         cacheManager.setRedisManager(redisManager());
         return cacheManager;
     }
 
+//    @Autowired
+//    CustomRedisSessionDAO customRedisSessionDAO;
     @Bean
     public RedisSessionDAO redisSessionDAO() {
-        RedisSessionDAO sessionDAO = new RedisSessionDAO();
-        sessionDAO.setExpire(120);
+        CustomRedisSessionDAO sessionDAO = new CustomRedisSessionDAO();
+        sessionDAO.setExpire(1000);
         sessionDAO.setKeyPrefix("shiro:sessionRedis:");
         sessionDAO.setRedisManager(redisManager());
         return sessionDAO;
     }
 
+//    @Bean
+//    public RedisManager redisManager() {
+//        RedisManager redisManager = new RedisManager();
+//        redisManager.setSerializer(new SomeSerializer()); // 這裡設置序列化器
+//        // ... 其他配置
+//        return redisManager;
+//    }
+
+
     @Bean
-    public DefaultSessionManager sessionManager() {
-        DefaultSessionManager sessionManager = new DefaultSessionManager();
-        sessionManager.setGlobalSessionTimeout(120*1000);
+    public DefaultWebSessionManager sessionManager() {
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        sessionManager.setGlobalSessionTimeout(1000*1000);
+        sessionManager.setSessionValidationSchedulerEnabled(true);
+        sessionManager.setSessionIdCookie(sessionIdCookie());
         sessionManager.setSessionDAO(redisSessionDAO());
+        sessionManager.setSessionIdUrlRewritingEnabled(false);
         return sessionManager;
+    }
+    @Bean
+    public SimpleCookie sessionIdCookie() {
+        SimpleCookie simpleCookie = new SimpleCookie("sid");
+        simpleCookie.setHttpOnly(true);
+        simpleCookie.setMaxAge(-1); // Session的生命周期，-1表示随浏览器关闭
+        simpleCookie.setPath("/");
+        return simpleCookie;
     }
 
     @Autowired
@@ -75,9 +99,11 @@ public class ShiroConfig {
         shiroFilter.setSecurityManager(securityManager());
         // ... 其他配置，例如URL過濾規則等
         shiroFilter.setLoginUrl("/auth/login");
+        shiroFilter.setSuccessUrl("/index");
+        shiroFilter.setUnauthorizedUrl("/unauthorized");
 
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/test/**","authc");
+        filterChainDefinitionMap.put("/test/**","roles[admin]");
         shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         return shiroFilter;

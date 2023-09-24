@@ -5,3 +5,10 @@ spring:
       database: 0
 #      password: your-redis-password
       port: 6379
+
+logging:
+  file:
+    name: "java-practice.log"
+  level:
+    root: DEBUG
+
