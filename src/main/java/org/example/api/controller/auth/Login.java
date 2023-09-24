@@ -30,8 +30,6 @@ public class Login {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed");
         }
     }
-
-
 }
 
 class LoginRequest {
