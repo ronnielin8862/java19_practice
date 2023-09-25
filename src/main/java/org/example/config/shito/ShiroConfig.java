@@ -89,7 +89,7 @@ public class ShiroConfig {
         ronnieRealm.setCachingEnabled(true);
         realms.add(ronnieRealm);
 
-         securityManager.setRealms(realms);
+        securityManager.setRealms(realms);
         return securityManager;
     }
 
