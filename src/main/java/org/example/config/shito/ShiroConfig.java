@@ -2,7 +2,6 @@ package org.example.config.shito;
 
 
 import org.apache.shiro.realm.Realm;
-import org.apache.shiro.session.mgt.DefaultSessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
@@ -15,7 +14,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
@@ -38,25 +40,14 @@ public class ShiroConfig {
         return cacheManager;
     }
 
-//    @Autowired
-//    CustomRedisSessionDAO customRedisSessionDAO;
     @Bean
     public RedisSessionDAO redisSessionDAO() {
-        CustomRedisSessionDAO sessionDAO = new CustomRedisSessionDAO();
+        RedisSessionDAO sessionDAO = new RedisSessionDAO();
         sessionDAO.setExpire(1000);
         sessionDAO.setKeyPrefix("shiro:sessionRedis:");
         sessionDAO.setRedisManager(redisManager());
         return sessionDAO;
     }
-
-//    @Bean
-//    public RedisManager redisManager() {
-//        RedisManager redisManager = new RedisManager();
-//        redisManager.setSerializer(new SomeSerializer()); // 這裡設置序列化器
-//        // ... 其他配置
-//        return redisManager;
-//    }
-
 
     @Bean
     public DefaultWebSessionManager sessionManager() {
