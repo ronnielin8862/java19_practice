@@ -1,6 +1,5 @@
 package org.example.config.shito;
 
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -22,6 +21,7 @@ public class RonnieRealm extends AuthorizingRealm {
         if (username == null) {
             throw new AuthenticationException("Invalid username");
         }
+        System.out.println("host = " + ((UsernamePasswordToken) token).getHost());
 
         return new SimpleAuthenticationInfo(username, userToken.getPassword(),  getName());
     }

@@ -9,18 +9,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Configuration
 public class RonnieRedisManager extends RedisManager {
-
     @Autowired
     RedisTemplate redisTemplate;
-
     public RonnieRedisManager(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
-
-//    @Override
     public byte[] get(String[] key) {
         return (byte[]) redisTemplate.opsForValue().get(key);
     }
-
-    // 重寫其他方法，如set、del等，使其使用redisTemplate
 }

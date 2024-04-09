@@ -1,4 +1,6 @@
 spring:
+#  jmx:
+#    enabled: false
   data:
     redis:
       host: 0.0.0.0

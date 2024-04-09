@@ -25,7 +25,6 @@ public class ShiroConfig {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
-
     @Bean
     public RedisManager redisManager() {
         return new RonnieRedisManager(redisTemplate);
@@ -92,9 +91,11 @@ public class ShiroConfig {
         shiroFilter.setLoginUrl("/auth/login");
         shiroFilter.setSuccessUrl("/index");
         shiroFilter.setUnauthorizedUrl("/unauthorized");
+        shiroFilter.setUnauthorizedUrl("/test/**");
 
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/test/**","roles[admin]");
+        filterChainDefinitionMap.put("/secret/**","roles[admin]");
+        filterChainDefinitionMap.put("/test/**","anon");
         shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         return shiroFilter;

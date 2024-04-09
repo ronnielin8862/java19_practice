@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 @Configuration
 @Component
 public class RedisConfig {
-
     @Bean
     public RedisTemplate<String, Object> stringObjectRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
