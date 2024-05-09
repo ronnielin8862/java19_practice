@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
@@ -12,6 +13,17 @@ public class GetBeanByConstruct {
 
     @Autowired
     BeanFactory beanFactory;
+
+    static Integer a;
+    @Value("${some.key: 987}")
+    void setA(Integer b){
+        a = b;
+    }
+
+    @Test
+    public void testGetValue(){
+        System.out.println("A = " + a);
+    }
 
     @Test
     public void testMultiThreadGetConstruct() throws InterruptedException {

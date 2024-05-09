@@ -25,6 +25,8 @@ public class Construct {
         System.out.println("new flag = " + flag);
     }
 
+
+
     public String getFlag(){
         return flag;
     }

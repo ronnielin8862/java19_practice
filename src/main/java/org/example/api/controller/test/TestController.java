@@ -1,5 +1,6 @@
 package org.example.api.controller.test;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.model.AddStaffBo;
 import org.example.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/test")
+@Slf4j
 public class TestController {
 
     @Autowired
@@ -22,10 +24,12 @@ public class TestController {
         try {
 
             System.out.println(say);
-            String value = "World";
-            redisUtil.set(say.get("say"),value);
+            log.debug("debug");
+            log.info("info");
+//            String value = "World";
+//            redisUtil.set(say.get("say"),value);
 
-            System.out.println("redisReturn = " + redisReturn);
+//            System.out.println("redisReturn = " + redisReturn);
         }catch (Exception e){
             System.out.println("ERROR LAAAAAAAAAAAAAAAA");
         }

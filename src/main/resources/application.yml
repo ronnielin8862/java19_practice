@@ -7,10 +7,14 @@ spring:
       database: 0
 #      password: your-redis-password
       port: 6379
-
 logging:
-  file:
-    name: "java-practice.log"
   level:
-    root: DEBUG
+    root: info
+# 不設定就沒有日誌file匯出
+#logging:
+#  file:
+#    name: "java-practice.log"
 
+
+some:
+  key: 234
