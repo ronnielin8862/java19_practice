@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -22,8 +23,6 @@ public class TestController {
     public String helloWorld(@RequestBody Map<String,String> say){
         String redisReturn = "temp";
         try {
-
-            System.out.println(say);
             log.debug("debug");
             log.info("info");
 //            String value = "World";
