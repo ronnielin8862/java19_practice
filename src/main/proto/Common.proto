@@ -1,0 +1,21 @@
+syntax = "proto3";
+package com.practice.grpc;
+
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto"; //如需納秒級別的時間精度，int64 不足以表示這麼高精度的時間點，google.protobuf.Timestamp 可以解決這個問題
+//import "google/protobuf/struct.proto";
+//import "google/protobuf/empty.proto";
+//import "google/protobuf/duration.proto";
+
+
+
+message CommonReq {
+  int32 uuid = 1;
+}
+
+message CommonResp {
+  int32 responseCode = 1;
+  string message = 2;
+  google.protobuf.Timestamp usedTime = 3;
+  optional google.protobuf.Any data = 4;
+}

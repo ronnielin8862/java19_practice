@@ -18,3 +18,10 @@ logging:
 
 some:
   key: 234
+
+grpc:
+  client:
+    myGrpcService:
+      address: "static://127.0.0.1:8081"  # gRPC 伺服器地址
+      enableKeepAlive: true
+      negotiationType: plaintext  # 禁用 TLS 顯示明文  （即不使用 HTTPS)

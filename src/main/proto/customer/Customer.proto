@@ -1,0 +1,30 @@
+syntax = "proto3";
+package com.practice.grpc.customer;
+
+import "Common.proto";
+
+service CustomerService {
+  rpc QueryCustomer(QueryCustomerReq) returns (QueryCustomerResp);
+  rpc CreateCustomer(CreateCustomerReq) returns (QueryCustomerResp);
+}
+
+message QueryCustomerReq {
+    CommonReq commonReq = 1;
+    repeated int32 id = 2;
+}
+
+message QueryCustomerResp {
+  CommonResp commonResp = 1;
+  repeated Customer customer = 2;
+}
+
+message CreateCustomerReq {
+  CommonReq commonReq = 1;
+  string name = 2;
+}
+
+message Customer {
+  int32 id = 1;
+  string name = 2;
+//  map<int32,string> idAndName = 1; // same
+}
