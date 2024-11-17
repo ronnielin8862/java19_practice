@@ -2,9 +2,7 @@ package org.example.grpc;
 
 import com.practice.grpc.GreetingServiceGrpc;
 import com.practice.grpc.GreetingServiceOuterClass;
-import com.practice.grpc.customer.CustomerServiceGrpc;
 import io.grpc.stub.StreamObserver;
-import net.devh.boot.grpc.client.inject.GrpcClient;
 import net.devh.boot.grpc.server.service.GrpcService;
 
 @GrpcService
